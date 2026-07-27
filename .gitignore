@@ -1,0 +1,20 @@
+# Secrets — jamais dans Git
+.env
+
+# Environnements Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs Airflow locaux
+airflow/logs/
+*.log
+
+# OS
+.DS_Store
+
+# NB : data/raw/ et data/clean/ sont volontairement PAS ignorés ici.
+# Le sujet demande que raw/ (backfill) et clean/ soient livrés dans le repo.
+# Si le volume devient trop gros pour Git, utilisez Git LFS plutôt que de
+# les ignorer complètement.

@@ -1,0 +1,72 @@
+# Airflow "standalone" simplifié pour ce projet (LocalExecutor + Postgres interne
+# pour les métadonnées Airflow — ATTENTION : c'est une base différente de votre
+# warehouse Supabase/Neon, qui lui reste externe et sert uniquement au projet).
+#
+# Démarrage :
+#   1. cp .env.example .env   puis complétez avec vos vraies valeurs
+#   2. docker compose up airflow-init
+#   3. docker compose up -d
+#   4. UI disponible sur http://localhost:8080 (login: airflow / airflow)
+#
+# Ce fichier est pensé pour tourner en continu sur une VM (ex: Oracle Cloud
+# free tier, un petit VPS, ou une machine du groupe restée allumée) : c'est
+# ELLE qui doit tourner 24h/24 pour que le pipeline continue après le rendu.
+
+x-airflow-common: &airflow-common
+  image: apache/airflow:2.9.3
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-metadata-db/airflow
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+    # Variables du projet, injectées dans le conteneur pour que collect.py /
+    # transform.py / load_warehouse.py les trouvent via os.getenv(...)
+    DB_HOST: ${DB_HOST}
+    DB_PORT: ${DB_PORT}
+    DB_NAME: ${DB_NAME}
+    DB_USER: ${DB_USER}
+    DB_PASSWORD: ${DB_PASSWORD}
+    DB_SSLMODE: ${DB_SSLMODE}
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - airflow-logs:/opt/airflow/logs
+    - .:/opt/airflow/project   # tout le repo (src/, data/) monté dans le conteneur
+  depends_on:
+    - airflow-metadata-db
+
+services:
+  airflow-metadata-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow-metadata:/var/lib/postgresql/data
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        pip install --no-cache-dir -r /opt/airflow/project/requirements.txt
+        airflow db migrate
+        airflow users create --username airflow --password airflow \
+          --firstname Groupe --lastname AQI --role Admin --email aqi@example.com
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    restart: always
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: bash -c "pip install --no-cache-dir -r /opt/airflow/project/requirements.txt && airflow scheduler"
+    restart: always
+
+volumes:
+  airflow-metadata:
+  airflow-logs:
