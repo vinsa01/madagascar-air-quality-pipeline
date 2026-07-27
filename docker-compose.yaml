@@ -38,7 +38,7 @@ services:
           --firstname Groupe --lastname AQI --role Admin --email aqi@example.com
   airflow-webserver:
     <<: *airflow-common
-    command: webserver
+    command: bash -c "pip install --no-cache-dir -r /opt/airflow/project/requirements.txt && airflow webserver"
     ports:
       - "8080:8080"
     restart: always
