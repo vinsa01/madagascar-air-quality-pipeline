@@ -1,3 +1,17 @@
+# Airflow "standalone" simplifié pour ce projet (LocalExecutor + Postgres interne
+# pour les métadonnées Airflow — ATTENTION : c'est une base différente de votre
+# warehouse Supabase/Neon, qui lui reste externe et sert uniquement au projet).
+#
+# Démarrage :
+#   1. cp .env.example .env   puis complétez avec vos vraies valeurs
+#   2. docker compose up airflow-init
+#   3. docker compose up -d
+#   4. UI disponible sur http://localhost:8080 (login: airflow / airflow)
+#
+# Ce fichier est pensé pour tourner en continu sur une VM (ex: Oracle Cloud
+# free tier, un petit VPS, ou une machine du groupe restée allumée) : c'est
+# ELLE qui doit tourner 24h/24 pour que le pipeline continue après le rendu.
+
 x-airflow-common: &airflow-common
   image: apache/airflow:slim-2.9.3-python3.11
   environment:
@@ -14,9 +28,9 @@ x-airflow-common: &airflow-common
   volumes:
     - ./airflow/dags:/opt/airflow/dags
     - airflow-logs:/opt/airflow/logs
+    - airflow-python-packages:/home/airflow/.local
     - .:/opt/airflow/project
-  depends_on:
-    - airflow-metadata-db
+
 services:
   airflow-metadata-db:
     image: postgres:15-alpine
@@ -26,8 +40,11 @@ services:
       POSTGRES_DB: airflow
     volumes:
       - airflow-metadata:/var/lib/postgresql/data
+
   airflow-init:
     <<: *airflow-common
+    depends_on:
+      - airflow-metadata-db
     entrypoint: /bin/bash
     command:
       - -c
@@ -36,16 +53,30 @@ services:
         airflow db migrate
         airflow users create --username airflow --password airflow \
           --firstname Groupe --lastname AQI --role Admin --email aqi@example.com
+
   airflow-webserver:
     <<: *airflow-common
-    command: bash -c "pip install --no-cache-dir -r /opt/airflow/project/requirements.txt && airflow webserver"
+    depends_on:
+      airflow-metadata-db:
+        condition: service_started
+      airflow-init:
+        condition: service_completed_successfully
+    command: webserver
     ports:
       - "8080:8080"
     restart: always
+
   airflow-scheduler:
     <<: *airflow-common
-    command: bash -c "pip install --no-cache-dir -r /opt/airflow/project/requirements.txt && airflow scheduler"
+    depends_on:
+      airflow-metadata-db:
+        condition: service_started
+      airflow-init:
+        condition: service_completed_successfully
+    command: scheduler
     restart: always
+
 volumes:
   airflow-metadata:
   airflow-logs:
+  airflow-python-packages:
