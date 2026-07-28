@@ -2,7 +2,7 @@
 # pour les métadonnées Airflow — ATTENTION : c'est une base différente de votre
 # warehouse Supabase/Neon, qui lui reste externe et sert uniquement au projet).
 #
-# Démarrage :
+# Démarrage 
 #   1. cp .env.example .env   puis complétez avec vos vraies valeurs
 #   2. docker compose up airflow-init
 #   3. docker compose up -d
@@ -34,6 +34,7 @@ x-airflow-common: &airflow-common
 services:
   airflow-metadata-db:
     image: postgres:15-alpine
+    restart: always
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
