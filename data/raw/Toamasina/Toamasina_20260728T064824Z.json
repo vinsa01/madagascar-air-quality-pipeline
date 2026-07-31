@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "city": "Toamasina",
+    "country": "Madagascar",
+    "requested_latitude": -18.1492,
+    "requested_longitude": 49.4023,
+    "collected_at_utc": "2026-07-28T06:48:24.481791+00:00",
+    "source_url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-18.1492&longitude=49.4023&hourly=european_aqi%2Cus_aqi%2Cpm10%2Cpm2_5%2Ccarbon_monoxide%2Cnitrogen_dioxide%2Csulphur_dioxide%2Cozone&past_hours=2&forecast_hours=1&timezone=UTC"
+  },
+  "api_response": {
+    "latitude": -18.099998,
+    "longitude": 49.40001,
+    "generationtime_ms": 0.18775463104248047,
+    "utc_offset_seconds": 0,
+    "timezone": "GMT",
+    "timezone_abbreviation": "GMT",
+    "elevation": 7.0,
+    "hourly_units": {
+      "time": "iso8601",
+      "european_aqi": "EAQI",
+      "us_aqi": "USAQI",
+      "pm10": "μg/m³",
+      "pm2_5": "μg/m³",
+      "carbon_monoxide": "μg/m³",
+      "nitrogen_dioxide": "μg/m³",
+      "sulphur_dioxide": "μg/m³",
+      "ozone": "μg/m³"
+    },
+    "hourly": {
+      "time": [
+        "2026-07-28T04:00",
+        "2026-07-28T05:00",
+        "2026-07-28T06:00"
+      ],
+      "european_aqi": [
+        22,
+        24,
+        25
+      ],
+      "us_aqi": [
+        36,
+        35,
+        34
+      ],
+      "pm10": [
+        4.9,
+        4.5,
+        4.5
+      ],
+      "pm2_5": [
+        3.3,
+        3.0,
+        2.8
+      ],
+      "carbon_monoxide": [
+        118.0,
+        115.0,
+        110.0
+      ],
+      "nitrogen_dioxide": [
+        1.5,
+        0.9,
+        0.5
+      ],
+      "sulphur_dioxide": [
+        0.5,
+        0.6,
+        0.6
+      ],
+      "ozone": [
+        55.0,
+        60.0,
+        63.0
+      ]
+    }
+  }
+}
