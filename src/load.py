@@ -1,5 +1,5 @@
 """
-load_warehouse.py — Charge clean/clean_aqi.csv dans le data warehouse Postgres.
+load.py — Charge clean/clean_aqi.csv dans le data warehouse Postgres.
 
 Rejouable et idempotent :
   - crée le schéma (dim_city, dim_time, fact_aqi) s'il n'existe pas encore
@@ -11,7 +11,7 @@ Nécessite les variables d'environnement décrites dans .env.example
 (DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, DB_SSLMODE).
 
 Utilisation :
-    python src/load_warehouse.py
+    python src/load.py
 """
 import csv
 from datetime import datetime
@@ -175,7 +175,7 @@ def main():
         rows = load_csv_rows()
         if not rows:
             print(f"\n{CLEAN_FILE} est vide ou introuvable : schéma et villes créés, "
-                  f"mais aucune mesure chargée. Lancez collect.py / backfill.py puis "
+                  f"mais aucune mesure chargée. Lancez extract.py / backfill.py puis "
                   f"transform.py, puis relancez ce script.")
             return
 

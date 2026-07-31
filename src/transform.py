@@ -80,7 +80,7 @@ def main():
     for path in raw_files:
         try:
             rows = parse_raw_file(path)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             print(f"  [!] fichier ignoré (invalide) : {path} -> {exc}")
             continue
 

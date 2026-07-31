@@ -1,15 +1,15 @@
 """
-collect.py — Collecte "live" horaire.
+extract.py — Collecte "live" horaire.
 
 Appelle l'API Open-Meteo pour chaque ville, sur une petite fenêtre récente
-(past_hours=48 par défaut) pour être tolérant aux runs manqués, et écrit
+(past_hours=2 par défaut) pour être tolérant aux runs manqués, et écrit
 UN fichier JSON brut par ville et par appel dans data/raw/.
 
 Ce script ne modifie JAMAIS un fichier existant : chaque exécution crée de
 nouveaux fichiers horodatés. C'est la garantie de "raw/ intouchable".
 
 Utilisation :
-    python src/collect.py
+    python src/extract.py
 """
 import json
 import sys
@@ -23,7 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from cities import CITIES
 from config import AIR_QUALITY_API_URL, HOURLY_VARIABLES, RAW_DIR
 
-PAST_HOURS = 48  # fenêtre de sécurité : couvre les runs manqués sans faire de trous
+PAST_HOURS = 1
 MAX_RETRIES = 3
 
 
@@ -87,13 +87,13 @@ def main():
             data = fetch_city(city)
             path = save_raw(city["city"], data)
             print(f"   OK -> {path}")
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             print(f"   ECHEC : {exc}")
             failures.append(city["city"])
 
     if failures:
         print(f"\nVilles en échec : {failures}")
-        sys.exit(1)  # code non-zéro -> le run Airflow apparaît en échec
+        sys.exit(1)
 
     print("\nCollecte terminée avec succès pour toutes les villes.")
 
