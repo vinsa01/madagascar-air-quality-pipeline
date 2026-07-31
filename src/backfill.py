@@ -7,7 +7,7 @@ plus larges, mais découper limite la taille des réponses et facilite les
 reprises en cas d'échec partiel).
 
 Chaque appel (1 ville x 1 mois) est sauvegardé comme un fichier brut distinct
-dans data/raw/, exactement comme collect.py — cohérent avec la règle
+dans data/raw/, exactement comme extract.py — cohérent avec la règle
 "un fichier par ville et par appel".
 
 Idempotent : si un fichier existe déjà pour une ville+mois donné, il n'est
@@ -119,8 +119,8 @@ def main():
                 with open(out_path, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
                 total_calls += 1
-                time.sleep(0.5)  # ménage l'API, on reste largement sous les quotas gratuits
-            except Exception as exc:  # noqa: BLE001
+                time.sleep(0.5)
+            except Exception as exc:
                 print(f"   ECHEC : {exc}")
                 failed += 1
 

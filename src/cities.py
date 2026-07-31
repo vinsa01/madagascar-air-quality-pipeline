@@ -1,6 +1,6 @@
 """
 Source unique de vérité pour la liste des villes du projet.
-Tous les scripts (collect, backfill, transform, load_warehouse) importent
+Tous les scripts (collect, backfill, transform, load) importent
 cette liste pour rester cohérents.
 """
 
