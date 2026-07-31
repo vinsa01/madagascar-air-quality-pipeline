@@ -25,7 +25,7 @@ x-airflow-common: &airflow-common
     DB_USER: ${DB_USER}
     DB_PASSWORD: ${DB_PASSWORD}
     DB_SSLMODE: ${DB_SSLMODE}
-    dns:
+  dns:
     - 8.8.8.8
     - 1.1.1.1
   volumes:
@@ -84,3 +84,4 @@ volumes:
   airflow-metadata:
   airflow-logs:
   airflow-python-packages:
+
