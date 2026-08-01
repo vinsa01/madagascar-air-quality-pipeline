@@ -1,0 +1,68 @@
+{
+  "_meta": {
+    "city": "Fianarantsoa",
+    "country": "Madagascar",
+    "requested_latitude": -21.4536,
+    "requested_longitude": 47.0854,
+    "collected_at_utc": "2026-08-01T01:55:43.819384+00:00",
+    "source_url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-21.4536&longitude=47.0854&hourly=european_aqi%2Cus_aqi%2Cpm10%2Cpm2_5%2Ccarbon_monoxide%2Cnitrogen_dioxide%2Csulphur_dioxide%2Cozone&past_hours=1&forecast_hours=1&timezone=UTC"
+  },
+  "api_response": {
+    "latitude": -21.5,
+    "longitude": 47.100006,
+    "generationtime_ms": 0.41663646697998047,
+    "utc_offset_seconds": 0,
+    "timezone": "GMT",
+    "timezone_abbreviation": "GMT",
+    "elevation": 1128.0,
+    "hourly_units": {
+      "time": "iso8601",
+      "european_aqi": "EAQI",
+      "us_aqi": "USAQI",
+      "pm10": "μg/m³",
+      "pm2_5": "μg/m³",
+      "carbon_monoxide": "μg/m³",
+      "nitrogen_dioxide": "μg/m³",
+      "sulphur_dioxide": "μg/m³",
+      "ozone": "μg/m³"
+    },
+    "hourly": {
+      "time": [
+        "2026-08-01T00:00",
+        "2026-08-01T01:00"
+      ],
+      "european_aqi": [
+        32,
+        32
+      ],
+      "us_aqi": [
+        63,
+        64
+      ],
+      "pm10": [
+        20.1,
+        19.3
+      ],
+      "pm2_5": [
+        19.5,
+        18.9
+      ],
+      "carbon_monoxide": [
+        172.0,
+        154.0
+      ],
+      "nitrogen_dioxide": [
+        7.3,
+        7.8
+      ],
+      "sulphur_dioxide": [
+        0.9,
+        0.8
+      ],
+      "ozone": [
+        22.0,
+        18.0
+      ]
+    }
+  }
+}

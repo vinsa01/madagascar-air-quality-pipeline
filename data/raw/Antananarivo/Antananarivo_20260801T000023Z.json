@@ -1,0 +1,68 @@
+{
+  "_meta": {
+    "city": "Antananarivo",
+    "country": "Madagascar",
+    "requested_latitude": -18.8792,
+    "requested_longitude": 47.5079,
+    "collected_at_utc": "2026-08-01T00:00:23.926664+00:00",
+    "source_url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-18.8792&longitude=47.5079&hourly=european_aqi%2Cus_aqi%2Cpm10%2Cpm2_5%2Ccarbon_monoxide%2Cnitrogen_dioxide%2Csulphur_dioxide%2Cozone&past_hours=1&forecast_hours=1&timezone=UTC"
+  },
+  "api_response": {
+    "latitude": -18.900002,
+    "longitude": 47.5,
+    "generationtime_ms": 0.24616718292236328,
+    "utc_offset_seconds": 0,
+    "timezone": "GMT",
+    "timezone_abbreviation": "GMT",
+    "elevation": 1252.0,
+    "hourly_units": {
+      "time": "iso8601",
+      "european_aqi": "EAQI",
+      "us_aqi": "USAQI",
+      "pm10": "μg/m³",
+      "pm2_5": "μg/m³",
+      "carbon_monoxide": "μg/m³",
+      "nitrogen_dioxide": "μg/m³",
+      "sulphur_dioxide": "μg/m³",
+      "ozone": "μg/m³"
+    },
+    "hourly": {
+      "time": [
+        "2026-07-31T23:00",
+        "2026-08-01T00:00"
+      ],
+      "european_aqi": [
+        31,
+        32
+      ],
+      "us_aqi": [
+        62,
+        63
+      ],
+      "pm10": [
+        28.6,
+        26.9
+      ],
+      "pm2_5": [
+        27.5,
+        25.7
+      ],
+      "carbon_monoxide": [
+        159.0,
+        146.0
+      ],
+      "nitrogen_dioxide": [
+        9.0,
+        7.8
+      ],
+      "sulphur_dioxide": [
+        4.2,
+        3.9
+      ],
+      "ozone": [
+        27.0,
+        25.0
+      ]
+    }
+  }
+}

@@ -2,7 +2,7 @@
 DAG Airflow : pipeline AQI Madagascar.
 
 Planification : toutes les heures, 24h/24.
-Tâches : collect (API -> raw/) >> transform (raw/ -> clean/) >> load (clean/ -> warehouse)
+Tâches : extract (API -> raw/) >> transform (raw/ -> clean/) >> load (clean/ -> warehouse)
 
 En cas d'échec d'une tâche, Airflow retente automatiquement (voir default_args)
 et le run apparaît en rouge dans l'UI -> c'est votre preuve d'exécution/échec
@@ -18,10 +18,12 @@ from airflow.operators.bash import BashOperator
 PROJECT_DIR = "/opt/airflow/project"
 
 default_args = {
-    "owner": "groupe-aqi-madagascar",
+    "owner": "GROUPE 28",
+    "depends_on_past": False,
     "retries": 2,
     "retry_delay": timedelta(minutes=5),
     "email_on_failure": False,
+    "email_on_retry": False,
 }
 
 with DAG(
@@ -35,9 +37,9 @@ with DAG(
     tags=["aqi", "madagascar", "projet-data-engineering"],
 ) as dag:
 
-    collect = BashOperator(
-        task_id="collect",
-        bash_command=f"cd {PROJECT_DIR}/src && python collect.py",
+    extract = BashOperator(
+        task_id="extract",
+        bash_command=f"cd {PROJECT_DIR}/src && python extract.py",
     )
 
     transform = BashOperator(
@@ -45,9 +47,9 @@ with DAG(
         bash_command=f"cd {PROJECT_DIR}/src && python transform.py",
     )
 
-    load_warehouse = BashOperator(
-        task_id="load_warehouse",
-        bash_command=f"cd {PROJECT_DIR}/src && python load_warehouse.py",
+    load = BashOperator(
+        task_id="load",
+        bash_command=f"cd {PROJECT_DIR}/src && python load.py",
     )
 
-    collect >> transform >> load_warehouse
+    extract >> transform >> load
