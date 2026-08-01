@@ -14,10 +14,9 @@ Utilisation :
     python src/load.py
 """
 import csv
+import psycopg
 from datetime import datetime
 from pathlib import Path
-
-import psycopg
 
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -184,7 +183,6 @@ def main():
         print("\nChargement du warehouse terminé avec succès.")
     finally:
         conn.close()
-
 
 if __name__ == "__main__":
     main()

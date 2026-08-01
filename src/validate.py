@@ -113,6 +113,5 @@ def main():
             "README du stockage (pannes, indisponibilité de l'API, etc.)."
         )
 
-
 if __name__ == "__main__":
     main()
