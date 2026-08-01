@@ -57,6 +57,7 @@ timeouts ponctuels pendant le backfill (connexion réseau instable côté client
 mais le mécanisme de réessai automatique de `backfill.py` (3 tentatives, délai
 progressif) les a tous résolus. Résultat final : 60/60 appels réussis, 0 échec,
 couverture 100%.
+Trou ponctuel le 29/07 vers 04h UTC : échec de résolution DNS transitoire dans le conteneur Docker (3 tentatives, ~15 min), 1 heure de données manquante pour toutes les villes. Corrigé en configurant des serveurs DNS explicites (8.8.8.8, 1.1.1.1) et en augmentant le nombre de tentatives du DAG.
 
 ## Infos de connexion à la base
 
