@@ -27,10 +27,10 @@ python transform.py
 python validate.py
 
 # 6. Charger le data warehouse
-python load_warehouse.py
+python load.py
 
 # 7. Test d'une collecte "live" (celle qu'Airflow exécutera toutes les heures)
-python collect.py
+python extract.py
 ```
 
 ## Démarrage avec Airflow (production)
