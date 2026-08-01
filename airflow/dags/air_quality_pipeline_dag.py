@@ -19,8 +19,10 @@ PROJECT_DIR = "/opt/airflow/project"
 
 default_args = {
     "owner": "groupe-aqi-madagascar",
-    "retries": 2,
-    "retry_delay": timedelta(minutes=5),
+    "retries": 4,
+    "retry_delay": timedelta(minutes=3),
+    "retry_exponential_backoff": True,
+    "max_retry_delay": timedelta(minutes=20),
     "email_on_failure": False,
 }
 
