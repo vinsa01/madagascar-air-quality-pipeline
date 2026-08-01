@@ -1,7 +1,0 @@
-Base de données Supabase créée et connectée (via le pooler, en IPv4)
-Schéma warehouse créé : dim_city, dim_time, fact_aqi
-5 villes chargées dans dim_city
-Collecte API (collect.py) testée et fonctionnelle → écrit dans data/raw/
-Transformation (transform.py) testée → génère data/clean/clean_aqi.csv propre
-Validation (validate.py) → 245 lignes, 0 erreur, 102% de couverture
-Chargement warehouse (load_warehouse.py) → 245 mesures chargées dans fact_aqi
