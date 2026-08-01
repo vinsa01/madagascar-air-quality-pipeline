@@ -43,9 +43,3 @@ Grain de la table de faits : **une ligne par (ville, heure)**.
 - `transform.py` : reconstruit `clean/` en entier à chaque exécution à partir de `raw/`.
 - `load_warehouse.py` : upsert (`ON CONFLICT`) sur les dimensions et sur `(city_id, time_id)` pour les faits — relancer le chargement ne duplique jamais rien.
 
-## Ce que le groupe doit encore compléter
-
-- [ ] Héberger le conteneur Airflow sur une machine qui reste allumée jusqu'au-delà du rendu (le cours IA1 doit continuer à recevoir des données).
-- [ ] Créer le projet Supabase/Neon et renseigner `.env` (jamais commité).
-- [ ] Lancer `backfill.py --months 12` une première fois pour peupler l'historique.
-- [ ] Vérifier dans l'UI Airflow que plusieurs runs réussis apparaissent sur ≥ 5 jours différents, à des heures sans intervention humaine (capture à fournir).
